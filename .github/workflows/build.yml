@@ -1,0 +1,52 @@
+name: build
+
+on:
+  push:
+
+env:
+  OWNER: ${{ github.repository_owner }}
+  FILE: renovate
+  IMAGE: ghcr.io/${{ github.repository_owner }}/renovate
+  BUILDKIT_PROGRESS: plain
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    env:
+      TAG: latest
+
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+
+      - name: Init
+        run: ./bin/init.sh
+        shell: bash
+
+      - name: docker-config
+        uses: renovatebot/internal-tools@398845862f453798d77377861116d2aa064bc814 # tag=v1.14.7
+        with:
+          command: docker-config
+
+      - name: Build the Docker image
+        run: docker buildx bake test
+
+      - name: Test run
+        run: docker-compose --file docker-compose.test.yml run sut
+        env:
+          IMAGE: ${{ env.IMAGE }}:${{ env.TAG }}
+
+      - name: Log into registry
+        if: github.ref == 'refs/heads/main'
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Publish the Docker image
+        if: github.ref == 'refs/heads/main'
+        run: docker buildx bake build
