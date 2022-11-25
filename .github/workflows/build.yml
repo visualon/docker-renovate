@@ -44,9 +44,30 @@ jobs:
           IMAGE: ${{ env.IMAGE }}:${{ env.TAG }}
 
       - name: Log into registry
-        if: github.ref == 'refs/heads/main'
+        if: github.ref_name == 'main'
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
       - name: Publish the Docker image
-        if: github.ref == 'refs/heads/main'
+        if: github.ref_name == 'main'
         run: docker buildx bake build
+
+  release:
+    needs: build
+
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main'
+
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3.1.0
+
+      - name: Init
+        run: ./bin/init.sh
+
+      - uses: ncipollo/release-action@18eadf9c9b0f226f47f164f5373c6a44f0aae169 # v1.11.2
+        with:
+          allowUpdates: true
+          body: See https://github.com/renovatebot/renovate/releases/tag/v${{ env.VERSION }} for more changes
+          commit: ${{ github.sha }}
+          name: ${{ env.VERSION }}
+          tag: v${{ env.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
