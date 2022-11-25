@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
 
-  linux:
+  build:
     runs-on: ubuntu-latest
 
     timeout-minutes: 30
