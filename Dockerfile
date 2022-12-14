@@ -13,7 +13,7 @@ RUN install-tool node 18.12.1
 RUN install-tool corepack 0.15.2
 
 # renovate: datasource=dotnet lookupName=dotnet-sdk
-RUN install-tool dotnet 7.0.100
+RUN install-tool dotnet 7.0.101
 
 
 USER ${USER_ID}
