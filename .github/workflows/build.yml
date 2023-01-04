@@ -66,7 +66,7 @@ jobs:
       - uses: ncipollo/release-action@a2e71bdd4e7dab70ca26a852f29600c98b33153e # v1.12.0
         with:
           allowUpdates: true
-          body: See https://github.com/renovatebot/renovate/releases/tag/v${{ env.VERSION }} for more changes
+          body: See https://github.com/renovatebot/renovate/releases/tag/${{ env.VERSION }} for more changes
           commit: ${{ github.sha }}
           name: ${{ env.VERSION }}
           tag: v${{ env.VERSION }}
