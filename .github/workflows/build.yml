@@ -15,12 +15,19 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
 
   build:
     runs-on: ubuntu-latest
 
     timeout-minutes: 30
+
+    permissions:
+      contents: read
+      packages: write
 
     env:
       TAG: latest
@@ -55,6 +62,9 @@ jobs:
 
   release:
     needs: build
+
+    permissions:
+      contents: write
 
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
