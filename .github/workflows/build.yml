@@ -3,6 +3,8 @@ name: build
 on:
   push:
 
+  workflow_dispatch:
+
 env:
   OWNER: ${{ github.repository_owner }}
   FILE: renovate
