@@ -28,7 +28,6 @@ group "test" {
 }
 
 target "settings" {
-  inherits   = ["settings"]
   cache-from = [
     "type=registry,ref=ghcr.io/${OWNER}/cache:${FILE}",
     "type=registry,ref=ghcr.io/${OWNER}/cache:${FILE}-${TAG}",
