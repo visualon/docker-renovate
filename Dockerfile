@@ -7,7 +7,7 @@ USER root
 RUN prepare-tool java gradle
 
 # renovate: datasource=node
-RUN install-tool node 18.14.1
+RUN install-tool node 18.14.2
 
 # renovate: datasource=npm
 RUN install-tool corepack 0.16.0
