@@ -2,12 +2,12 @@
 set -eo pipefail
 
 FROM=$(grep 'RENOVATE_VERSION=' Dockerfile)
-SEMVER_REGEX=":(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
+SEMVER_REGEX="=(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
 
 
 if ! [[ "$FROM" =~ $SEMVER_REGEX ]]; then
   echo Not a semver tag - skipping
-  exit
+  exit 1
 fi
 
 major=${BASH_REMATCH[1]}
@@ -16,5 +16,5 @@ patch=${BASH_REMATCH[3]}
 
 
 VERSION="${major}.${minor}.${patch}"
-echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 echo "Found version: ${VERSION}"
+echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
