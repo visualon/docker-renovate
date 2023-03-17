@@ -17,7 +17,7 @@ RUN prepare-tool java gradle
 RUN install-tool node 18.15.0
 
 # renovate: datasource=npm
-RUN install-tool corepack 0.17.0
+RUN install-tool corepack 0.17.1
 
 # renovate: datasource=dotnet-version lookupName=dotnet-sdk
 RUN install-tool dotnet 7.0.202
