@@ -18,7 +18,7 @@
     },
     {
       "packageNames": [
-        "ghcr.io/containerbase/buildpack",
+        "ghcr.io/containerbase/base",
         "node",
         "yarn"
       ],
