@@ -20,7 +20,7 @@ RUN install-tool node 18.16.1
 RUN install-tool corepack 0.18.1
 
 # renovate: datasource=dotnet-version lookupName=dotnet-sdk
-RUN install-tool dotnet 7.0.304
+RUN install-tool dotnet 7.0.305
 
 
 ARG RENOVATE_VERSION
