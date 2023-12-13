@@ -3,7 +3,7 @@ ARG RENOVATE_VERSION=37.91.4
 
 # Base image
 #============
-FROM ghcr.io/containerbase/base:9.30.0@sha256:e0cfc6f69790e6f1effeb4d83c7872d8752202088b47dde4848405c8710cc677 AS base
+FROM ghcr.io/containerbase/base:9.30.3@sha256:32073bcd537963b9abe3b424d96a67fc7d5457e71ca036f7f3db1b9ca2e3afc6 AS base
 
 LABEL maintainer="Michael Kriese <michael.kriese@visualon.de>"
 LABEL name="renovate"
