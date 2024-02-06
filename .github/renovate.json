@@ -11,17 +11,13 @@
   },
   "packageRules": [
     {
-      "packageNames": ["renovate", "renovate/renovate", "renovatebot/internal-tools"],
+      "matchPackageNames": ["renovate", "renovate/renovate", "renovatebot/internal-tools"],
       "extends": [":automergeMajor"],
-      "stabilityDays": 0,
+      "minimumReleaseAge": null,
       "dependencyDashboardApproval": false
     },
     {
-      "packageNames": [
-        "ghcr.io/containerbase/base",
-        "node",
-        "yarn"
-      ],
+      "matchPackageNames": ["ghcr.io/containerbase/base", "node", "yarn"],
       "extends": [":automergeMinor"]
     }
   ]
