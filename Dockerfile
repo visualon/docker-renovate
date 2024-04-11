@@ -1,5 +1,5 @@
 # renovate: datasource=npm depName=renovate versioning=npm
-ARG RENOVATE_VERSION=37.286.1
+ARG RENOVATE_VERSION=37.287.0
 
 # Base image
 #============
