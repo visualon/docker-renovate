@@ -48,7 +48,7 @@ jobs:
         run: docker buildx bake test
 
       - name: Test run
-        run: docker-compose --file docker-compose.test.yml run sut
+        run: docker compose --file docker-compose.test.yml run sut
         env:
           IMAGE: ${{ env.IMAGE }}:${{ env.TAG }}
 
