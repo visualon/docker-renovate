@@ -29,4 +29,4 @@ RUN install-tool renovate
 
 LABEL org.opencontainers.image.version="${RENOVATE_VERSION}"
 
-USER ${USER_ID}
+USER 12021
