@@ -26,7 +26,9 @@ jobs:
     timeout-minutes: 30
 
     permissions:
+      attestations: write
       contents: read
+      id-token: write
       packages: write
 
     env:
@@ -58,7 +60,19 @@ jobs:
 
       - name: Publish the Docker image
         if: github.ref_name == 'main'
-        run: docker buildx bake build
+        run: |
+          docker buildx bake --metadata-file /tmp/meta.json build
+          jq . /tmp/meta.json
+          digest=$(jq -r '.push_ghcr.["containerimage.digest"]' /tmp/meta.json)
+          echo "digest=$digest" >> "$GITHUB_ENV"
+
+      - name: Attest the Docker image
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
+        if: github.ref_name == 'main'
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ env.digest }}
+          push-to-registry: true
 
   release:
     needs: build
