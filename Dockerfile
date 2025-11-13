@@ -14,7 +14,7 @@ LABEL org.opencontainers.image.source="https://github.com/renovatebot/renovate" 
 RUN prepare-tool java gradle
 
 # renovate: datasource=node
-RUN install-tool node 24.11.0
+RUN install-tool node 24.11.1
 
 # renovate: datasource=npm
 RUN install-tool pnpm 10.20.0
