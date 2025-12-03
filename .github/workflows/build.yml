@@ -37,6 +37,8 @@ jobs:
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
+      - uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad # v4.0.0
+
       - name: Init
         run: ./bin/init.sh
         shell: bash
@@ -59,19 +61,24 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
       - name: Publish the Docker image
+        id: publish
         if: github.ref_name == 'main'
         run: |
           docker buildx bake --metadata-file /tmp/meta.json build
           jq . /tmp/meta.json
           digest=$(jq -r '.push_ghcr.["containerimage.digest"]' /tmp/meta.json)
-          echo "digest=$digest" >> "$GITHUB_ENV"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+
+      - name: Sign the Docker image
+        if: env.DRY_RUN != 'true'
+        run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.publish.outputs.digest }}
 
       - name: Attest the Docker image
         uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
         if: github.ref_name == 'main'
         with:
           subject-name: ${{ env.IMAGE }}
-          subject-digest: ${{ env.digest }}
+          subject-digest: ${{ steps.publish.outputs.digest }}
           push-to-registry: true
 
   release:
