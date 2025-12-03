@@ -1,5 +1,6 @@
-# renovate: datasource=npm depName=renovate versioning=npm
 ARG RENOVATE_VERSION=42.32.1
+
+FROM ghcr.io/renovatebot/renovate:${RENOVATE_VERSION} AS build
 
 # Base image
 #============
@@ -23,9 +24,11 @@ RUN install-tool pnpm 10.24.0
 RUN install-tool dotnet 10.0.100
 
 
-ARG RENOVATE_VERSION
+COPY --link --from=build --chown=root:root /usr/local/sbin/ /usr/local/sbin/
+COPY --link --from=build --chown=root:root /usr/local/renovate/ /usr/local/renovate/
 
-RUN install-tool renovate
+
+ARG RENOVATE_VERSION
 
 LABEL org.opencontainers.image.version="${RENOVATE_VERSION}"
 
