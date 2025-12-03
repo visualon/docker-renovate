@@ -70,7 +70,7 @@ jobs:
           echo "digest=$digest" >> "$GITHUB_OUTPUT"
 
       - name: Sign the Docker image
-        if: env.DRY_RUN != 'true'
+        if: github.ref_name == 'main'
         run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.publish.outputs.digest }}
 
       - name: Attest the Docker image
