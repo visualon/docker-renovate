@@ -26,8 +26,8 @@ jobs:
     timeout-minutes: 30
 
     permissions:
-      attestations: write
       artifact-metadata: write
+      attestations: write
       contents: read
       id-token: write
       packages: write
