@@ -18,7 +18,7 @@ RUN prepare-tool java gradle
 RUN install-tool node 24.14.0
 
 # renovate: datasource=npm
-RUN install-tool pnpm 10.31.0
+RUN install-tool pnpm 10.32.1
 
 # renovate: datasource=dotnet-version packageName=dotnet-sdk
 RUN install-tool dotnet 10.0.201
