@@ -45,7 +45,7 @@ jobs:
         shell: bash
 
       - name: docker-config
-        uses: containerbase/internal-tools@1dd7882986cbda6e6ac247b70a67305bc68745bb # v4.6.37
+        uses: containerbase/internal-tools@1d932825f2ee6064ca521035959d1eabc6ed5a2c # v4.6.39
         with:
           command: docker-config
 
