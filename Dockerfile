@@ -1,4 +1,4 @@
-ARG RENOVATE_VERSION=43.275.0@sha256:f0902eb911e2aa39e51ec87f0a0b4ecf7a97ced493a3252cf0fab0fdc9d6ec69
+ARG RENOVATE_VERSION=43.275.1@sha256:cbdee70a39d31e06f10fcb5d3caba82cb86e200ad7f1ac15115c4fe5b3a5ebc9
 
 FROM ghcr.io/renovatebot/renovate:${RENOVATE_VERSION} AS build
 
