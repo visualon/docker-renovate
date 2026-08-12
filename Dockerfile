@@ -21,7 +21,7 @@ RUN install-tool node 24.19.0
 RUN install-tool pnpm 11.20.0
 
 # renovate: datasource=dotnet-version packageName=dotnet-sdk
-RUN install-tool dotnet 10.0.302
+RUN install-tool dotnet 10.0.400
 
 
 COPY --link --from=build --chown=root:root /usr/local/sbin/ /usr/local/sbin/
