@@ -2,3 +2,14 @@ services:
   sut:
     image: '${IMAGE}'
     command: renovate --version
+
+  containerbase:
+    image: '${IMAGE}'
+    command:
+      - node
+      - --input-type=module
+      - --eval
+      - |
+        import { packageVersion, validateContainerbaseVersion } from '/usr/local/renovate/node_modules/@renovatebot/base-image/index.js';
+        const version = await validateContainerbaseVersion();
+        console.log(`containerbase $${version} is compatible with @containerbase/base $${packageVersion}`);
