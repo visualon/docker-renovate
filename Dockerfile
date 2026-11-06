@@ -4,7 +4,7 @@ FROM ghcr.io/renovatebot/renovate:${RENOVATE_VERSION} AS build
 
 # Base image
 #============
-FROM ghcr.io/containerbase/base:14.66.2@sha256:5dcdb0aa9e9a0fc33b4ca0f013720b3031ccac36f35f9476f5818f44dd49367c AS base
+FROM ghcr.io/containerbase/base:14.66.3@sha256:6c50d1895463718c843fd5d8a9d24ac343159e9f64d56541add639b7147eb4bd AS base
 
 LABEL maintainer="Michael Kriese <michael.kriese@visualon.de>"
 LABEL name="renovate"
